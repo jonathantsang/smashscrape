@@ -14,7 +14,7 @@ soup = BeautifulSoup(page, 'html.parser')
 
 # Take out the value
 count =  soup.find_all("small", { "class" : "text-muted"})
-name = soup.find_all("div", { "class" : "gamertag-title-lg"})
+name = soup.find_all("div", { "class" : "summit-player-container"})
 
 print count
 print name
@@ -27,8 +27,8 @@ for c in count:
 for n in name:
     na.append(n.get_text())
     
-print co[0]
-print na[1]
+print co
+print na
 
 f = open('test.csv', 'wb')
 #out = csv.writer(f, delimiter=",")
