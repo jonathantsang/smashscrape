@@ -1,9 +1,7 @@
 # import libraries
 import urllib2  
 from bs4 import BeautifulSoup  
-import requests
 import csv  
-import sys
 from datetime import datetime  
 
 quote_page = "https://smash.gg/tournament/smash-summit-3/voting"
@@ -15,7 +13,7 @@ page = urllib2.urlopen(quote_page)
 soup = BeautifulSoup(page, 'html.parser')
 
 # Take out the value
-count =  soup.find_all(['small']) 
+count =  soup.find_all("small", { "class" : "text-muted"})
 name = soup.find_all("div", { "class" : "gamertag-title-lg"})
 
 print count
@@ -25,20 +23,14 @@ co = []
 na = []
 
 for c in count:
-    co.append(c)
+    co.append(c.get_text())
 for n in name:
-    na.append(n)
+    na.append(n.get_text())
     
 print co[0]
 print na[1]
 
-# File Writing
-ofile  = open('ttest.csv', "wb")
-writer = csv.writer(ofile, delimiter='	', quotechar='"', quoting=csv.QUOTE_ALL)
-
-for row in co:
-    writer.writerow(row)
-for row in na:
-    writer.writerow(row)
-
-ofile.close()
+f = open('test.csv', 'wb')
+out = csv.writer(f, delimiter=",")
+out.writerow([name, count, datetime.time])
+f.close()
