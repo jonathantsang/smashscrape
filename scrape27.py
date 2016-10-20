@@ -32,5 +32,10 @@ print na[1]
 
 f = open('test.csv', 'wb')
 out = csv.writer(f, delimiter=",")
-out.writerow([name, count, datetime.time])
+i = 0
+while(i < len(co)):
+    print co[i]
+    print na[i]
+    out.writerow([co[i], na[i], datetime.time])
+    i += 1
 f.close()
